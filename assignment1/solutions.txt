@@ -81,9 +81,9 @@ In other case, some time Greedy search can find path to solution by visiting mor
 And in every situation, A* search can always find the optimal solution.
 
 Q5.
-For different heuristics, tiles-out distance need to search through more possible nodes in order to reach to goal state.
+For different heuristics, out-of tiles need to search through more possible nodes in order to reach to goal state.
 Compare with City Block distance, City Block distance can speed less time and space due to it visits less nodes in order to get goal state.
-If both Tiles-out distance and City Block distance is small like problem #3 and problem #2, both of them can easily find optimal solution to reach goal state since they the close set amount is the same as cost.
+If both out-of tiles and City Block distance is small like problem #3 and problem #2, both of them can easily find optimal solution to reach goal state since they the close set amount is the same as cost.
 
 
 Q6.
