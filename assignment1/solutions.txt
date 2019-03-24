@@ -1,0 +1,137 @@
+Q1.
+                  Problem #1   ||   Problem #2   ||   Problem #3
+-------------------------------------------------------------------
+Type of Search|Open|Closed|    ||Open|Closed|    ||Open|Closed|
+              |Set | Set  |Cost||Set | Set  |Cost|| Set| Set  |Cost
+-------------------------------------------------------------------
+ DFS          |6   |6     |6   ||5   |4     |4   ||200+|200+  |∞
+ BFS          |59  |69    |6   ||13  |19    |4   ||2   |3     |2 
+ -------------------------------------------------------------------
+
+Q2.
+For problem 1, Depth-first search is lucky that it guess the right path. And Breadth-first search need to find out every possible move until it reach the goal state.
+For problem 2, Depth-first search is lucky again to get the right path at a few steps. Breadth-first search again try every possible move to get to the goal state.
+For problem 3, since Depth-first search is not a complete, it goes more than 200 steps and it hasn't reach the goal state. But the Breadth-first search reach the goal state very quick due to the misplace block is only 2.
+
+
+
+Q3.
+              Problem #1        Problem #2       Problem #3
+           ---------------------------------------------------
+ Type of  |
+ Search   | Open|Closed|Cost||Open|Closed|Cost||Open|Closed|Cost
+          | Set | Set  |    || Set| Set  |    ||Set | Set  |    
+----------------------------------------------------------------
+ Greedy + |74   |107   |6   ||5   |4     |4   ||2   |2     |2
+Tiles Out |     |      |    ||    |      |    ||    |      |    
+----------------------------------------------------------------
+ Greedy + |8    |7     |6   ||8   |6     |4   ||2   |2     |2
+Euclidean |     |      |    ||    |      |    ||    |      |    
+----------------------------------------------------------------
+ Greedy + |6    |6     |6   ||5   |5     |5   ||2   |2     |2
+City Block|     |      |    ||    |      |    ||    |      |    
+----------------------------------------------------------------
+A* Search |9    |10    |6   ||5   |4     |4   ||2   |2     |2
+ + Tiles  |     |      |    ||    |      |    ||    |      |    
+   Out    |     |      |    ||    |      |    ||    |      |
+-----------------------------------------------------------------
+A* Search |8    |7     |6   ||8   |6     |4   ||2   |2     |2
+    +     |     |      |    ||    |      |    ||    |      |    
+Euclidean |     |      |    ||    |      |    ||    |      |
+-----------------------------------------------------------------
+A* Search |6    |6     |6   ||5   |4     |4   ||2   |2     |2
+  + City  |     |      |    ||    |      |    ||    |      |    
+  Block   |     |      |    ||    |      |    ||    |      |
+-----------------------------------------------------------------
+
+
+              Problem #4        Problem #5       Problem #6
+           ---------------------------------------------------
+ Type of  |
+ Search   | Open|Closed|Cost||Open|Closed|Cost||Open|Closed|Cost
+          | Set | Set  |    || Set| Set  |    ||Set | Set  |    
+----------------------------------------------------------------
+ Greedy + |234  |373   |43  ||193 |301   |43  ||11  |9     |8
+Tiles Out |     |      |    ||    |      |    ||    |      |    
+----------------------------------------------------------------
+ Greedy + |251  |380   |39  ||63  |75    |27  ||11  |9     |8
+Euclidean |     |      |    ||    |      |    ||    |      |    
+----------------------------------------------------------------
+ Greedy + |11   |13    |13  ||61  |88    |31  ||9   |8     |8
+City Block|     |      |    ||    |      |    ||    |      |    
+----------------------------------------------------------------
+A* Search |76   |102   |13  ||582 |918   |17  ||21  |23    |8
+ + Tiles  |     |      |    ||    |      |    ||    |      |    
+   Out    |     |      |    ||    |      |    ||    |      |
+-----------------------------------------------------------------
+A* Search |40   |52    |13  ||294 |459   |17  ||14  |15    |8
+    +     |     |      |    ||    |      |    ||    |      |    
+Euclidean |     |      |    ||    |      |    ||    |      |
+-----------------------------------------------------------------
+A* Search |12   |15    |13  ||99  |162   |17  ||10  |10    |8
+  + City  |     |      |    ||    |      |    ||    |      |    
+  Block   |     |      |    ||    |      |    ||    |      |
+-----------------------------------------------------------------
+
+Q4.
+Generally speaking, both A* and Greedy search are complete search, which means they both can get find a solution.
+But due to different algorithm design, Greedy search algorithm cannot always find an optimal solution.
+If Tiles Out of Place and Manhattan Distance are both small, both Greedy and A* search operate similar to each other and they can both find the optimal solution in small amount of steps.
+In other case, some time Greedy search can find path to solution by visiting more node.
+And in every situation, A* search can always find the optimal solution.
+
+Q5.
+For different heuristics, tiles-out distance need to search through more possible nodes in order to reach to goal state.
+Compare with City Block distance, City Block distance can speed less time and space due to it visits less nodes in order to get goal state.
+If both Tiles-out distance and City Block distance is small like problem #3 and problem #2, both of them can easily find optimal solution to reach goal state since they the close set amount is the same as cost.
+
+
+Q6.
+h(n) = abs(f(n) - g(n))
+where f(n) is number of misplaced tiles, and g(n) is number of tiles in the right position, and abs means get the absolute value since sometime the number of tiles in the right position can be greater than the number of misplaced tiles.
+Let us use example below:
+initial state:          goal state:
+ - | 2 | 3 |            | 1 | 2 | 3 |
+ 1 | 5 | 4 |    =====>  | 5 | - | 4 |
+ 8 | 6 | 7 |            | 8 | 6 | 7 |
+ f(n) = 2
+ g(n) = 6
+ then h(n) = abs(2 - 6) = 4
+ However this puzzle can be solved by the cost of 2
+
+ Q7.
+(a).
+Breadth-first search: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+Depth-first search: 1, 2, 4, 8, 9, 5, 10, 11, 3, 6, 12
+Depth-limited search: 1, 2, 4, 8, 9, 5, 10, 11, 3, 6, 12
+Iterative Deepening: depth-0: 1
+                     depth-1: 1, 2, 3
+                     dpeth-2: 1, 2, 3, 4, 5, 6, 7
+                     depth-3: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+
+(b).
+Yes. Bi-directional search will start from both initial state and goal state. Searches will stop when they meet each other at some point.
+Let us keep the goal state be 12. Therefore, one search will start from the initial state 1 and the other search will start from goal state which is 12.
+If breadth-first search is applied, then the first round will be: for the search from node 1, it will visit 2, 3. And the other search will reach 6
+For the second round: the first search will reach 4, 5, 6, 7. At the meantime, the second search will reach 3 and 13. 
+As a result, search will stop since they meet at 3 and 6.
+
+(c).
+For the search from the initial state 1: 2, 4
+For the search from goal state 12: 1, 2
+
+Q8.
+1) Bendigo -> Castlemaine: h = 58 + 106 = 164
+   Bendigo -> Kilmore: h = 115 +  58 = 173
+First step: Bendigo goes to Castlemaine since 164 < 173
+2) Castlemaine -> Maryborough: h = 44 + 137 = 181
+   Castlemaine -> Daylesford: h = 37 + 88 = 125
+   Castlemaine -> Kyneton: h = 35 + 81 = 116
+Second step: Castlemaine goes to Kyneton.
+Total cost from Bendigo: h = 58 + 35 + 81 = 174
+3) Kyneton -> Gisborne: h = 33 + 50 = 83
+Third step: Kyneton goes to Gisborne.
+Total cost from Bendigo: h = 58 + 35 + 33 + 50 = 176
+4) Gisborne -> Melbourne: h = 53 + 0 = 53
+Forth step: Gisborne goes to goal state Melbourne.
+Total cost from Bendigo: h = 58 + 35 + 33 + 53 + 0 = 179
