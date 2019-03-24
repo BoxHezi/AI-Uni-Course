@@ -1,4 +1,4 @@
-# Search Stragtegy
+# [Search Stragtegy - Uninformed Search](https://mhesham.wordpress.com/tag/depth-first-search/)
 
 ## **Breadth-first search (BFS)**
 * **Description**
