@@ -4,7 +4,7 @@ Q1.
 Type of Search|Open|Closed|    ||Open|Closed|    ||Open|Closed|
               |Set | Set  |Cost||Set | Set  |Cost|| Set| Set  |Cost
 -------------------------------------------------------------------
- DFS          |6   |6     |6   ||5   |4     |4   ||200+|200+  |∞
+ DFS          |6   |6     |6   ||5   |4     |4   ||200+|200+  |N/A
  BFS          |59  |69    |6   ||13  |19    |4   ||2   |3     |2 
  -------------------------------------------------------------------
 
@@ -72,13 +72,14 @@ A* Search |12   |15    |13  ||99  |162   |17  ||10  |10    |8
   + City  |     |      |    ||    |      |    ||    |      |    
   Block   |     |      |    ||    |      |    ||    |      |
 -----------------------------------------------------------------
+P.S. In some case, algorithms visit more than 200 nodes, but they still find a solution, so I keep the actual number for both open and close set instead of putting 200+
 
 Q4.
 Generally speaking, both A* and Greedy search are complete search, which means they both can get find a solution.
 But due to different algorithm design, Greedy search algorithm cannot always find an optimal solution.
 If Tiles Out of Place and Manhattan Distance are both small, both Greedy and A* search operate similar to each other and they can both find the optimal solution in small amount of steps.
-In other case, some time Greedy search can find path to solution by visiting more node.
-And in every situation, A* search can always find the optimal solution.
+In every situation, A* search can always find the optimal solution. 
+Although Greedy search can find solution even if it need visit more than 200 nodes, it is not always optimal solution.
 
 Q5.
 For different heuristics, out-of tiles need to search through more possible nodes in order to reach to goal state.
@@ -88,7 +89,7 @@ If both out-of tiles and City Block distance is small like problem #3 and proble
 
 Q6.
 h(n) = abs(f(n) - g(n))
-where f(n) is number of misplaced tiles, and g(n) is number of tiles in the right position, and abs means get the absolute value since sometime the number of tiles in the right position can be greater than the number of misplaced tiles.
+where f(n) is number of misplaced tiles, and g(n) is number of tiles in the correct position, and abs means get the absolute value since sometime the number of tiles in the right position can be greater than the number of misplaced tiles.
 Let us use example below:
 initial state:          goal state:
  - | 2 | 3 |            | 1 | 2 | 3 |
@@ -97,7 +98,15 @@ initial state:          goal state:
  f(n) = 2
  g(n) = 6
  then h(n) = abs(2 - 6) = 4
- However this puzzle can be solved by the cost of 2
+ However this puzzle can be solved by the cost of 2, the 2 steps are followed:
+ Step 1: Move 1 one step upward, then it becomes:
+| 1 | 2 | 3 |
+| - | 5 | 4 |
+| 8 | 6 | 7 |
+Step 2: Move 5 one step to left, then it will reach the goal state:
+| 1 | 2 | 3 |
+| 5 | - | 4 |
+| 8 | 6 | 7 |
 
  Q7.
 (a).
@@ -123,15 +132,31 @@ For the search from goal state 12: 1, 2
 Q8.
 1) Bendigo -> Castlemaine: h = 58 + 106 = 164
    Bendigo -> Kilmore: h = 115 +  58 = 173
+
 First step: Bendigo goes to Castlemaine since 164 < 173
+
 2) Castlemaine -> Maryborough: h = 44 + 137 = 181
    Castlemaine -> Daylesford: h = 37 + 88 = 125
    Castlemaine -> Kyneton: h = 35 + 81 = 116
-Second step: Castlemaine goes to Kyneton.
-Total cost from Bendigo: h = 58 + 35 + 81 = 174
-3) Kyneton -> Gisborne: h = 33 + 50 = 83
-Third step: Kyneton goes to Gisborne.
-Total cost from Bendigo: h = 58 + 35 + 33 + 50 = 176
-4) Gisborne -> Melbourne: h = 53 + 0 = 53
-Forth step: Gisborne goes to goal state Melbourne.
-Total cost from Bendigo: h = 58 + 35 + 33 + 53 + 0 = 179
+   Total cost from Bendigo -> Castlemaine -> Kyneton: h = 58 + 35 + 81 = 174
+Since the total cost from Bendigo to Kyneton is 174 which is more than from Bendigo to Kilmore.
+Therefore, at the second round, it will go back and visit Kilmore.
+
+Second step: Bendigo goes to Kilmore.
+
+3) Kilmore -> Melbourne: h = 71 + 0 = 71
+   Total cost from Bendigo -> Kilmore -> Melbourne: 115 + 71 = 186
+   186 is greater than 174, as the result, it will visit Kyneton instead.
+
+Third step: Bendigo goes to Castlemaine and then Kyneton
+
+4) Kyneton -> Gisborne: h = 33 + 50 = 83
+   Total cost from Bendigo -> Castlemaine -> Kyneton -> Gisborne: 58 + 35 + 33 + 50 = 176
+
+Forth step: From Kyneton goes to Gisborne
+
+5) Gisborne -> Melbourne: h = 53 + 0 = 53
+   Total cost from Bendigo -> Castlemaine -> Kyneton -> Gisborne -> Melbourne: 58 + 35 + 33 + 53 + 0 = 179
+
+Final solution will be:
+Bendigo -> Castlemaine -> Kyneton -> Gisborne -> Melbourne which total cost will be 179
